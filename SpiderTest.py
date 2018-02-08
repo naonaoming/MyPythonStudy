@@ -41,10 +41,14 @@ for i in range(1,100):
     'http': 'http://116.199.115.78:80',
 }
     payload = {
-        '_': '1518073762796',
+        '_': '1518077517787',
         'mid': str(mymid)
     }
-    print(payload)
+    # payload = {
+    #     'mid': str(mymid)
+    # }
+
+    #print(payload)
     jscontent = requests \
         .session() \
         .post('http://space.bilibili.com/ajax/member/GetInfo',
@@ -54,14 +58,18 @@ for i in range(1,100):
         .text
 
 #print(jscontent)
-    jsDict = json.loads(jscontent)
-    statusJson = jsDict['status'] if 'status' in jsDict.keys() else False
-    if statusJson:
-        jsData = jsDict['data']
-        name = jsData['name']
-        face = jsData['face']
-        print(face)
-        pngname = 'D:\lest\log' + str(i) + '.png'
-        urllib.request.urlretrieve(face,pngname)
+    try:
+        jsDict = json.loads(jscontent)
+        statusJson = jsDict['status'] if 'status' in jsDict.keys() else False
+        if statusJson:
+            jsData = jsDict['data']
+            name = jsData['name']
+            face = jsData['face']
+            print(face)
+            pngname = 'D:\lest\log' + name + '.png'
+            urllib.request.urlretrieve(face,pngname)
+    except ValueError:
+        print("漏了张图")
+        pass
 
 url = 'http://www.runoob.com/design-pattern/factory-pattern.html'
