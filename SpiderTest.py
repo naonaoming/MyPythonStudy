@@ -24,9 +24,7 @@ head = {
     'Accept': 'application/json, text/javascript, */*; q=0.01',
 }
 
-for i in range(1,100):
-    mymid = 9900 + i
-    proxies = {
+proxies = {
     'http': 'http://61.155.164.108:3128',
     'http': 'http://116.199.115.79:80',
     'http': 'http://42.245.252.35:80',
@@ -40,6 +38,10 @@ for i in range(1,100):
     'http': 'http://123.57.76.102:80',
     'http': 'http://116.199.115.78:80',
 }
+
+for i in range(1,1):
+    mymid = 9900 + i
+
     payload = {
         '_': '1518077517787',
         'mid': str(mymid)
@@ -71,5 +73,12 @@ for i in range(1,100):
     except ValueError:
         print("漏了张图")
         pass
+
+urlinfo = 'http://space.bilibili.com/ajax/member/MyInfo'
+mydata = {'vmid':'33929530'}
+content = requests.session().post(urlinfo,headers=head,data=mydata,proxies=proxies).text
+print(content)
+# urlinfo = http://space.bilibili.com/ajax/member/MyInfo?vmid=33929530
+
 
 url = 'http://www.runoob.com/design-pattern/factory-pattern.html'
