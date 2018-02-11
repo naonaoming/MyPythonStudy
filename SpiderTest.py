@@ -43,14 +43,10 @@ for i in range(1,1):
     mymid = 9900 + i
 
     payload = {
-        '_': '1518077517787',
+        '_': '1518073762796',
         'mid': str(mymid)
     }
-    # payload = {
-    #     'mid': str(mymid)
-    # }
-
-    #print(payload)
+    print(payload)
     jscontent = requests \
         .session() \
         .post('http://space.bilibili.com/ajax/member/GetInfo',
@@ -60,19 +56,15 @@ for i in range(1,1):
         .text
 
 #print(jscontent)
-    try:
-        jsDict = json.loads(jscontent)
-        statusJson = jsDict['status'] if 'status' in jsDict.keys() else False
-        if statusJson:
-            jsData = jsDict['data']
-            name = jsData['name']
-            face = jsData['face']
-            print(face)
-            pngname = 'D:\lest\log' + name + '.png'
-            urllib.request.urlretrieve(face,pngname)
-    except ValueError:
-        print("漏了张图")
-        pass
+    jsDict = json.loads(jscontent)
+    statusJson = jsDict['status'] if 'status' in jsDict.keys() else False
+    if statusJson:
+        jsData = jsDict['data']
+        name = jsData['name']
+        face = jsData['face']
+        print(face)
+        pngname = 'D:\lest\log' + str(i) + '.png'
+        urllib.request.urlretrieve(face,pngname)
 
 urlinfo = 'http://space.bilibili.com/ajax/member/MyInfo'
 mydata = {'vmid':'33929530'}
