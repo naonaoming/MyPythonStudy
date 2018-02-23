@@ -10,6 +10,7 @@ import numpy as np
 import time
 from bs4 import BeautifulSoup
 import jieba
+import redis
 
 reload(sys)
 
@@ -18,7 +19,9 @@ hds=[{'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) 
 {'User-Agent': 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)'}]
 
 if __name__ == '__main__':
-    book_tag = '文化'
+    r = redis.Redis(host='localhost',port=6379,db=0)
+
+    book_tag = '小说'
     page_num = 1
     while 1:
         url = 'http://www.douban.com/tag/' + urllib.request.quote(book_tag) + '/book?start=' + str(page_num * 15)
@@ -30,15 +33,13 @@ if __name__ == '__main__':
             text = text.decode('utf-8') # 编码改为utf-8，没找到修改默认编码的方法
             soup = BeautifulSoup(text,"html.parser")
             list_soup = soup.find('div',{'class': 'mod book-list'})
-            #print(list_soup)
             #words = jieba.cut(list_soup)
-            #print("/".join(words))
             for book_info in list_soup.findAll('dd'):
                 title=book_info.find('a',{'class','title'}).string.strip()
                 desc_list=book_info.find('div',{'class','desc'})    # 翻译？/作者/出版社/时间/价格
                 #print(desc_list)
-                #print(title)
-            break
+                print(title)
+            page_num += 1
         except Exception(e):
             print(e)
         page_num += 1
