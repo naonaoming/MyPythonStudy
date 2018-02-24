@@ -79,6 +79,9 @@ def getsource(url):
                 mid = data['mid']
                 name = data['name']
                 sex = data['sex']
+                face = data['face']
+                png_name = "D:\lest\Face_" + name + ".png"
+                urllib.request.urlretrieve(face, png_name)
                 if len(sex) < 2:
                     sex = 'undefined'
                 rank = data['rank']
@@ -100,7 +103,7 @@ class myThread(threading.Thread):
 r = redis.Redis(host="localhost",port=6379,db=1)
 uas = LoadUserAgents('user_agent.txt')
 
-for m in range(99,10100):
+for m in range(2010,10100):
     urls = []
     for i in range(m * 100, (m + 1) * 100):
         url = 'https://space.bilibili.com/' + str(i)
