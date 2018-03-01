@@ -1,5 +1,5 @@
 # -*-coding:utf8-*-
-
+import os
 import urllib
 import requests
 from bs4 import BeautifulSoup
@@ -43,6 +43,20 @@ def LoadUserAgents(ua_file):
     return usa
 
 if __name__ == '__main__':
+    my_dir = os.path.join('d:','Aeroflex')
+    my_walk = os.walk(my_dir)
+    print(os.path.isdir(my_dir))
+    tup1 = ()
+    tup1 = os.walk(my_dir)
+    for root,dirs,files in os.walk(my_dir,topdown=False):
+        for name in files:
+            print(os.path.join(root,name))
+        for name in dirs:
+            print(os.path.join(root,name))
+
+    # print(walk)
+    exit(0)
+
     r = redis.Redis(host="localhost",port=6379,db=0)
     # print(r.lrange('rate',0,-1))
     # exit(0)
