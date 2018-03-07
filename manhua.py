@@ -7,6 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 import random
 import base64
+import re
 
 reload(sys)
 
@@ -44,19 +45,18 @@ head = {
 
 head = {'User-Agent':random.choice(uas)}
 
-url = 'http://www.iimanhua.com/imanhua/9202/261856.html?p=1'
-#http://www.iimanhua.com/imanhua/9202/272509.html?p=2
-#url = 'http://www.iimanhua.com//UploadFiles/9202/manhuatuku_106_manhua_12_20151214_2015121408100022793.jpg'
-#url = 'http://www.iimanhua.com//UploadFiles/9202/manhuatuku_106_manhua_12_20151214_2015121408100519401.jpg'
-#url = 'http://www.iimanhua.com//UploadFiles/9202/manhuatuku_106_manhua_12_20151214_2015121408111135276.jpg'
+url = 'http://www.iimanhua.com/imanhua/9202/261857.html?p=1'
+url = 'http://www.1kkk.com/ch1-117459/#ipg1'
+url = 'http://ac.qq.com/ComicView/chapter/id/530132/cid/3'
 
 r = requests.get(url,headers=head)
 # path = 'D:\pic\esd.png'
 # with open(path,'wb') as f:
 #    f.write(r.content)
 content = r.content
-#print(content.decode('gb2312'))
-page = content.decode('gb2312')
+
+#page = content.decode('gb2312')
+page = content.decode('utf-8')
 idx = page.index('qTcms_S_m_murl_e') if 'qTcms_S_m_murl_e' in page else exit(1)
 idx1 = page.index('"', idx)
 idx2 = page.index('"', idx1 + 1)
